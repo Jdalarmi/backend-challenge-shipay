@@ -2,7 +2,7 @@
 
 ## Repostas:
 
-## 1 - Consulta SQL que retorna o nome, e-mail e a descrição do papel e as descrição das permissões que um usuário possui:
+## 1 - Consulta SQL que retorna o nome, e-mail e a descrição do papel e as descrições das permissões que um usuário possui:
 
 ```
 SELECT
@@ -20,3 +20,9 @@ LEFT JOIN
     claims c ON uc.claim_id = c.id;
 
 ```
+
+## 2 - Utilizando SQLalchemy a implementação esta disponivél na construção do endpoint:
+
+http://127.0.0.1:8000/users/
+
+Diretorio: app/main.py

@@ -30,7 +30,6 @@ def get_user_with_role_and_claims(user_id: int, db: Session = Depends(get_db)):
 @app.get("/users/", response_model=List[schemas.UserOut])
 def read_users():
     with SessionLocal() as session:
-        # Consulta com carregamento antecipado de relacionamentos
         query = session.query(User).options(
             joinedload(User.role),
             joinedload(User.claims)
