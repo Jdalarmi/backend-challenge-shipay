@@ -40,8 +40,8 @@ class Database:
     def create_session(self):
         return sessionmaker(autocommit=False, autoflush=False, bind=self.engine)
 
-SQLALCHEMY_DATABASE_URL = 'sqlite:///dados.db'
-#SQLALCHEMY_DATABASE_URL = 'postgresql://admin:admin@database:5432/postgres'
+#SQLALCHEMY_DATABASE_URL = 'sqlite:///dados.db'
+SQLALCHEMY_DATABASE_URL = 'postgresql://admin:admin@database:5432/postgres'
 
 
 db = Database(SQLALCHEMY_DATABASE_URL)

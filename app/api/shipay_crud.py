@@ -2,7 +2,7 @@ from sqlalchemy.orm import Session
 from passlib.context import CryptContext
 import random
 import string
-from schemas import schemas
+from schemas import shipay_schemas
 from models.users import User, Role
 from datetime import datetime
 from sqlalchemy.orm import joinedload
@@ -13,7 +13,7 @@ pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 def get_password_hash(password):
     return pwd_context.hash(password)
 
-def create_user(db: Session, user: schemas.UserCreate):
+def create_user(db: Session, user: shipay_schemas.UserCreate):
     hashed_password = get_password_hash(user.password) if user.password else get_password_hash(''.join(random.choices(string.ascii_uppercase + string.digits, k=8)))
     db_user = User(
         name=user.name,
@@ -46,7 +46,7 @@ def get_user_with_role_and_claims(db: Session, user_id: int):
         return None
 
 
-def create_role(db: Session, role: schemas.RoleCreate):
+def create_role(db: Session, role: shipay_schemas.RoleCreate):
     db_role = Role(description=role.description)
     db.add(db_role)
     db.commit()

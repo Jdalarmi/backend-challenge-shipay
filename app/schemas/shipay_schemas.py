@@ -24,7 +24,9 @@ class RoleResponse(BaseModel):
     description: str
 
     class Config:
-        orm_mode = True
+        title = "Roles"
+        from_attributes = True
+
 
 class ClaimOut(BaseModel):
     id: int
@@ -32,14 +34,14 @@ class ClaimOut(BaseModel):
     active: bool
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 class RoleOut(BaseModel):
     id: int
     description: str
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 class UserOut(BaseModel):
     id: int
@@ -49,7 +51,7 @@ class UserOut(BaseModel):
     claims: List[ClaimOut]
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 class Link(BaseModel):
     href: str
