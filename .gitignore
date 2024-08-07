@@ -9,7 +9,7 @@ __pycache__/
 # Distribution / packaging
 dados.db
 .Python
-/data/pg/*
+data
 build/
 develop-eggs/
 dist/
