@@ -40,14 +40,30 @@ def read_users():
 @app.post("/users/", response_model=schemas.UserCreate)
 def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
     try:
+        if not crud.role_exists(db, user.role_id):
+            links = {
+                "create_role": schemas.Link(
+                    href="/roles/",
+                    rel="create_role",
+                    type="POST"
+                )
+            }
+            error_response = schemas.ErrorResponse(
+                error="Role not found. Please create a role first.",
+                links=links
+            )
+            return JSONResponse(status_code=400, content=error_response.dict())
+
         crud.create_user(db=db, user=user)
-        return JSONResponse(status_code=201, content={"sucess":"succefully created user"})
+
+        return JSONResponse(status_code=201, content={"success": "Successfully created user"})
+    except HTTPException as e:
+        raise e
     except Exception as e:
         return JSONResponse(
             status_code=500,
             content={"error": str(e)}
         )
-
 @app.post("/roles/", response_model=schemas.RoleResponse)
 def create_role(role: schemas.RoleCreate, db: Session = Depends(get_db)):
     db_role = crud.create_role(db=db, role=role)

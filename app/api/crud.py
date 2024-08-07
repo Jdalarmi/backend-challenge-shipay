@@ -52,3 +52,6 @@ def create_role(db: Session, role: schemas.RoleCreate):
     db.commit()
     db.refresh(db_role)
     return db_role
+
+def role_exists(db: Session, role_id: int) -> bool:
+    return db.query(Role).filter(Role.id == role_id).first() is not None

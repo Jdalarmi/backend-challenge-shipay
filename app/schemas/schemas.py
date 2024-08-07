@@ -1,5 +1,5 @@
-from pydantic import BaseModel
-from typing import Optional, List
+from pydantic import BaseModel, Field
+from typing import Dict, Optional, List
 
 class UserCreate(BaseModel):
     name: str
@@ -50,3 +50,12 @@ class UserOut(BaseModel):
 
     class Config:
         orm_mode = True
+
+class Link(BaseModel):
+    href: str
+    rel: str
+    type: str
+
+class ErrorResponse(BaseModel):
+    error: str
+    links: Dict[str, Link] = Field(default_factory=dict)
