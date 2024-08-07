@@ -6,7 +6,7 @@ from sqlalchemy.future import select
 from api import crud
 from db.connection import engine, Base, SessionLocal
 from models.users import create_tables, User
-
+from fastapi.responses import JSONResponse
 
 create_tables()
 
@@ -39,9 +39,14 @@ def read_users():
 
 @app.post("/users/", response_model=schemas.UserCreate)
 def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
-    db_user = crud.create_user(db=db, user=user)
-    return db_user
-
+    try:
+        crud.create_user(db=db, user=user)
+        return JSONResponse(status_code=201, content={"sucess":"succefully created user"})
+    except Exception as e:
+        return JSONResponse(
+            status_code=500,
+            content={"error": str(e)}
+        )
 
 @app.post("/roles/", response_model=schemas.RoleResponse)
 def create_role(role: schemas.RoleCreate, db: Session = Depends(get_db)):

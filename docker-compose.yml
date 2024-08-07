@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./app:/app
+    environment:
+      - DATABASE_URL=postgresql://admin:admin@database:5432/postgres
+    depends_on:
+      - database
+    networks:
+      - app-network
+
+  database:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+    ports:
+      - "5432:5432"
+    networks:
+      - app-network
+    volumes:
+      - ./data/pg:/var/lib/postgresql/data
+networks:
+  app-network:
+    driver: bridge

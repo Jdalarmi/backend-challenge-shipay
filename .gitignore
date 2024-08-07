@@ -7,7 +7,9 @@ __pycache__/
 *.so
 
 # Distribution / packaging
+dados.db
 .Python
+data
 build/
 develop-eggs/
 dist/
