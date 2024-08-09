@@ -55,7 +55,7 @@ Na resposta foi implementado praticas de HATEOAS que permite guiar usuario atrav
 Aguarde o build ser concluido, logo após é possível acessar a documentação do swagger da API REST em: http://localhost:8000/docs
 
 # ATENÇÃO
-Para banco de dados esta configurado o postgres e string de conexão esta formato no propio codigo, não fiz uso de variaveis de ambiente apenas para facilitar processo de inicialização.
+Para configuração de banco de dados esta configurado o postgres no docker e a string de conexão esta formatada no propio codigo, não fiz uso de variaveis de ambiente apenas para facilitar processo de inicialização.
 
 Caso postgres por acaso de algum erro apenas comentar a linha dele em app/db/connection.py e habilitar padrão basico com sqlite na linha acima.
 
