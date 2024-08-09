@@ -46,7 +46,7 @@ def create_user(user: shipay_schemas.UserCreate, db: Session = Depends(get_db)):
         if not shipay_crud.role_exists(db, user.role_id):
             links = {
                 "create_role": shipay_schemas.Link(
-                    href="/roles/",
+                    href="/roles/v1/",
                     rel="create_role",
                     type="POST"
                 )

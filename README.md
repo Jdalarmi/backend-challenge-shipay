@@ -54,9 +54,14 @@ Na resposta foi implementado praticas de HATEOAS que permite guiar usuario atrav
 
 Aguarde o build ser concluido, logo após é possível acessar a documentação do swagger da API REST em: http://localhost:8000/docs
 
+# ATENÇÃO
+Para banco de dados esta configurado o postgres e string de conexão esta formato no propio codigo, não fiz uso de variaveis de ambiente apenas para facilitar processo de inicialização.
+
+Caso postgres por acaso de algum erro apenas comentar a linha dele em app/db/connection.py e habilitar padrão basico com sqlite na linha acima.
+
 # Deploy
 
-Para deploy como projeto est com dockerizado é possivel apenas subir a imagem para local necessario e rodar.
+Para deploy como projeto esta dockerizado é possivel apenas subir a imagem para local necessario e rodar.
 
 ## 6.1 - Qual comando posso utilizar para listar os logs (no stdio) do Pod de Jobs?
 
@@ -73,5 +78,7 @@ Indica que variável WALLET_X_TOKEN_MAX_AGE não esta definida no modulo core.se
 
 ## 8 - Qual ou quais Padrões de Projeto/Design Patterns você utilizaria para normalizar serviços de terceiros (tornar múltiplas interfaces de diferentes fornecedores uniforme), por exemplo serviços de disparos de e-mails, ou então disparos de SMS.
 
--
+- Adapter Pattern ele permite que interfaces imcopativeis trabalhem juntas, através de uma interface padrão e adaptadores que convertem chamadas dessa interface para a especifica de cada serviço fornecedor.
+
+
 

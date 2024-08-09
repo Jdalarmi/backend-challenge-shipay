@@ -10,17 +10,26 @@ from logging.handlers import RotatingFileHandler
 def main(argv):
     greetings()
 
+    #Melhorar a maneira de capturar os sinais de interrupção do sistema
     print('Press Crtl+{0} to exit'.format('Break' if os.name == 'nt' else 'C'))
 
+    #Considerar mover a inicialização da aplicação Flask para um função separada para ser reutilizavél em outros locais
     app = Flask(__name__)
+
+    #Definição da configuração de logger em um arquivo separado, mais facil de customizar
     handler = RotatingFileHandler('bot.log', maxBytes=10000, backupCount=1)
     handler.setLevel(logging.INFO)
     app.logger.addHandler(handler)
+
+    #Obter string de conexão do banco de dados com uso de variavies de ambiente.
     app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql+psycopg2://postgres:123mudar@127.0.0.1:5432/bot_db'
     db = SQLAlchemy(app)
+
+    #Coniderar uso de um gerenciador de configração da aplicação
     config = configparser.ConfigParser()
     config.read('/tmp/bot/settings/config.ini')
 
+    #Validar se arquivo de configuração foi carregado com try catch e tratar casos onde possa ocorrer erros
     var1 = int(config.get('scheduler','IntervalInMinutes'))
     app.logger.warning('Intervalo entre as execucoes do processo: {}'.format(var1))
     scheduler = BlockingScheduler()
@@ -33,6 +42,7 @@ def main(argv):
         pass
 
 def greetings():
+    #Melhorar os prints por logs com niveis(info, debug)
     print('             ##########################')
     print('             # - ACME - Tasks Robot - #')
     print('             # - v 1.0 - 2020-07-28 - #')
@@ -45,10 +55,12 @@ def task1(db):
     workbook = xlsxwriter.Workbook(file_path)
     worksheet = workbook.add_worksheet()
 
+    #Uso de ORM para evitar SQL bruto.
     orders = db.session.execute('SELECT * FROM users;')
-    
+
     index = 1
-    
+
+    #Poderia ser um lista de cabeçalhos padrão, redução de codigo.
     worksheet.write('A{0}'.format(index),'Id')
     worksheet.write('B{0}'.format(index),'Name')
     worksheet.write('C{0}'.format(index),'Email')
@@ -56,7 +68,7 @@ def task1(db):
     worksheet.write('E{0}'.format(index),'Role Id')
     worksheet.write('F{0}'.format(index),'Created At')
     worksheet.write('G{0}'.format(index),'Updated At')
-    
+
     for order in orders:
         index = index + 1
 
@@ -74,7 +86,7 @@ def task1(db):
         worksheet.write('F{0}'.format(index),order[5])
         print('Updated At: {0}'.format(order[6]))
         worksheet.write('G{0}'.format(index),order[6])
-        
+
     workbook.close()
     print('job executed!')
 
