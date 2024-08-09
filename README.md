@@ -81,4 +81,9 @@ Indica que variável WALLET_X_TOKEN_MAX_AGE não esta definida no modulo core.se
 - Adapter Pattern ele permite que interfaces imcopativeis trabalhem juntas, através de uma interface padrão e adaptadores que convertem chamadas dessa interface para a especifica de cada serviço fornecedor.
 
 
+## Testes
+
+Para execução de testes da aplicação basta instalar o pytest, ir até pasta app/test e executar:
+
+```pytest```
 
